@@ -12,10 +12,15 @@
         <input id="destination" type="search" ng-focus="disableTap()" placeholder="Destination" places-auto-complete ng-model="vm.destination"/>
       </label>
 
-      <label class="item item-input">
+      <div class="item item-input" data-ng-repeat="waypoint in waypts">
         <i class="icon ion-search placeholder-icon"></i>
-        <input class="waypoint" type="search" ng-focus="disableTap()" placeholder="Waypoint" places-auto-complete ng-model="vm.throw"/>
-      </label>
+        <input class="waypoint" type="search" ng-model="waypoint.location" ng-focus="disableTap()" placeholder="Waypoint" places-auto-complete />
+        <button class="button button-outline icon-right ion-android-remove-circle button-assertive" ng-click="removeWaypoint($index)"></button>
+      </div>
+
+      <button class="button button-full button-positive" ng-click="addNewWaypoint()">
+        Add Waypoint
+      </button>
 
       <button class="button button-full button-positive" ng-click="calculateJourney()"=>
         Calculate Journey

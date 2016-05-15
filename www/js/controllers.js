@@ -41,20 +41,17 @@ angular.module('starter.controllers', ['ngMap'])
   };
 })
 
-.controller('JourneyCtrl', function($scope, NgMap, $ionicPopup, $timeout) {
-
+.controller('JourneyCtrl', function($scope, NgMap, $ionicPopup) {
   var vm = this;
 
-  NgMap.getMap().then(function(map) {
-    vm.map = map;
-  });
+  $scope.waypts = [];
 
-  $scope.disableTap = function() {
-    container = document.getElementsByClassName('pac-container');
-    angular.element(container).attr('data-tap-disabled', 'true');
-    angular.element(container).on("click", function() {
-      document.getElementById('searchBar').blur();
-    });
+  $scope.addNewWaypoint = function() {
+    $scope.waypts.push({location: '', stopover: true});
+  };
+
+  $scope.removeWaypoint = function(id) {
+    $scope.waypts.splice(id, 1);
   };
 
   $scope.calculateJourney = function() {
@@ -63,10 +60,13 @@ angular.module('starter.controllers', ['ngMap'])
 
     origin = angular.element(document.getElementById('origin')).val();
     destination = angular.element(document.getElementById('destination')).val();
+
     waypoints = [];
-    waypoints.push({
-      location: angular.element(document.getElementsByClassName('waypoint')).val(),
-      stopover: true
+    $scope.waypts.forEach(function(item){
+      waypoints.push({
+        location: item.location,
+        stopover: item.stopover
+      })
     });
 
     directionsDisplay.setMap(vm.map);
@@ -92,16 +92,22 @@ angular.module('starter.controllers', ['ngMap'])
           summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
           summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
         }
-    } else {
-      var alertPopup = $ionicPopup.alert({
-        title: 'Directions request failed',
-        template: '<center>' + status + '</center>'
-      });
-    }
-  });
+      } else {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Directions request failed',
+          template: '<center>' + status + '</center>'
+        });
+      }
+    });
   };
 
-  var vm = this;
+  $scope.disableTap = function() {
+    container = document.getElementsByClassName('pac-container');
+    angular.element(container).attr('data-tap-disabled', 'true');
+    angular.element(container).on("click", function() {
+      document.getElementById('searchBar').blur();
+    });
+  };
 
   vm.placeChanged = function() {
     vm.place = this.getPlace();
