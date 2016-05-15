@@ -1,5 +1,29 @@
 <ion-view view-title="Jouney">
   <ion-content>
-    <h1>Journey</h1>
+    <div ng-controller="JourneyCtrl as vm">
+
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input id="origin" type="search" ng-focus="disableTap()" placeholder="Origin" places-auto-complete ng-model="vm.origin"/>
+      </label>
+
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input id="destination" type="search" ng-focus="disableTap()" placeholder="Destination" places-auto-complete ng-model="vm.destination"/>
+      </label>
+
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input class="waypoint" type="search" ng-focus="disableTap()" placeholder="Waypoint" places-auto-complete ng-model="vm.throw"/>
+      </label>
+
+      <button class="button button-full button-positive" ng-click="calculateJourney()"=>
+        Calculate Journey
+      </button>
+
+      <ng-map center="[-15.7906607,-47.8884707]"></ng-map>
+
+      <div id="directions-panel"></div>
+    </div>
   </ion-content>
 </ion-view>
