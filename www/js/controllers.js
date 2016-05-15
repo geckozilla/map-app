@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngMap'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -41,8 +41,12 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('JourneyCtrl', function($scope) {
-
+.controller('JourneyCtrl', function($scope, NgMap) {
+  NgMap.getMap().then(function(map) {
+    console.log(map.getCenter());
+    console.log('markers', map.markers);
+    console.log('shapes', map.shapes);
+  });
 })
 
 .controller('PlaylistsCtrl', function($scope) {
