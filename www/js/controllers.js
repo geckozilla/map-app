@@ -9,7 +9,14 @@ angular.module('starter.controllers', ['ngMap'])
   $scope.waypts = [];
 
   $scope.addNewWaypoint = function() {
-    $scope.waypts.push({location: '', stopover: true});
+    if ($scope.waypts.length <= 8) {
+      $scope.waypts.push({location: '', stopover: true});
+    } else {
+      var alertPopup = $ionicPopup.alert({
+        title: 'Action not allowed',
+        template: '<center>Limit of waypoints reached</center>'
+      });
+    }
   };
 
   $scope.removeWaypoint = function(id) {
