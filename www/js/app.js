@@ -28,18 +28,13 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    templateUrl: 'templates/journey.html',
   })
 
   .state('app.journey', {
     url: '/journey',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/journey.html',
-        controller: 'JourneyCtrl'
-      }
-    }
+    templateUrl: 'templates/journey.html',
+    controller: 'JourneyCtrl'
   });
 
     // if none of the above states are matched, use this as the fallback
